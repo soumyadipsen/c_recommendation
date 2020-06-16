@@ -33,17 +33,33 @@ def recommend():
 	
 	n = request.args.get('n')
 	n=int(n)
-	f=[]
-	r=[]
+	
 	output=customer_recomendation(n)
 	if(type(output)==type('string')):
-		return render_template('index.html', pt1='Customer Not Found')
+		pt=[]
+		f=[]
+		r=[]
+		xyz=[]
+		output=['227','270','29','213','40','106','9','118','202','27']
+		with open(prod,'r') as csvfile:
+			csvreader=csv.reader(csvfile)
+			f=next(csvreader)
+			for rows in csvreader:
+				xyz.append(rows)
+		for ii in range(10):
+			for row in xyz:
+				if (output[ii] == row[0]):
+					pt.append(row[1])
+		print(pt)
+		return render_template('index.html',pt=pt)
 	else:
 		o=""
 		o=o+output[0]
 		output=o.split("|")
 		print(output)
 		pt=[]
+		f=[]
+		r=[]
 		xyz=[]
 		with open(prod,'r') as csvfile:
 			csvreader=csv.reader(csvfile)
